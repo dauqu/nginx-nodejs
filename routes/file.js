@@ -25,6 +25,16 @@ router.post("/", (req, res) => {
 
   const body_data = req.body.dns_name;
 
+  //Check if the dns name is already in the database
+  db.serialize(function () {
+    db.all("SELECT * FROM dns WHERE dns_name = '" + body_data + "'", function (err, rows) {
+      if (rows.length > 0) {
+        res.send("DNS name already exists");
+        return;
+      }
+    });
+  });
+
   //Add blocklisted dns name to database
   db.serialize(function () {
     db.run("CREATE TABLE IF NOT EXISTS dns (id INTEGER PRIMARY KEY AUTOINCREMENT, dns_name TEXT)");
