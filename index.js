@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 //Allow express to use JSON
 app.use(express.json());
 
-// app.use('/file', require('./routes/file'));
+app.use('/file', require('./routes/file'));
 
 app.listen(port, () =>
   console.log(`Example app listening on port http://localhost:${port}`)
