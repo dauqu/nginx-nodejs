@@ -78,7 +78,10 @@ ${blacklisted_dns.map((dns) => {
         return 404; # managed by Certbot
     }`;
 
-      fs.writeFile("test.conf", data, (err) => {
+      //Nginx config file path
+      path = "/etc/nginx/sites-available";
+      
+      fs.writeFile(path + "/test.conf", data, (err) => {
         if (err) {
           console.error(err);
           return;
