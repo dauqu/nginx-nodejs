@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const sqlite3 = require('sqlite3').verbose();
+const { exec } = require("child_process");
 
 
 //Read file
@@ -80,12 +81,25 @@ ${blacklisted_dns.map((dns) => {
 
       //Nginx config file path
       path = "/etc/nginx/sites-available";
-      
+
       fs.writeFile(path + "/test.conf", data, (err) => {
         if (err) {
           console.error(err);
           return;
         }
+
+        //Restart nginx
+        exec("sudo systemctl restart nginx", (error, stdout, stderr) => {
+          if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+          }
+          if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+          }
+          console.log(`stdout: ${stdout}`);
+        });
         res.send("File has been created");
       });
     } catch (error) {
