@@ -122,24 +122,24 @@ ${blacklisted_dns.map((dns) => {
 });
 
 //Delete data by ID 
-// router.delete("/:id", (req, res) => {
-//   const db = new sqlite3.Database('bdns.db');
+router.delete("/:id", (req, res) => {
+  const db = new sqlite3.Database('bdns.db');
 
-//   const id = req.params.id;
+  const id = req.params.id;
 
 
-//   db.run("DELETE FROM dns WHERE id = ?", id, function (err) {
-//     if (err) {
-//       console.error(err.message);
-//       return res.status(500).json({ message: "Error deleting data." });
-//     }
+  db.run("DELETE FROM dns WHERE id = ?", id, function (err) {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ message: "Error deleting data." });
+    }
 
-//     console.log(`Row(s) deleted: ${this.changes}`);
-//     return res.status(200).json({ message: "Data deleted successfully." });
-//   });
+    console.log(`Row(s) deleted: ${this.changes}`);
+    return res.status(200).json({ message: "Data deleted successfully." });
+  });
 
-//   db.close();
-// });
+  db.close();
+});
 
 
 
