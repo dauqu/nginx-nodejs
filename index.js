@@ -17,7 +17,7 @@ app.use(
   })
 );
 
-app.use(express.static("public"));
+app.use(express.static("public/build"));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
